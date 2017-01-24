@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="">
+
+  <title>Wally</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material Design fonts -->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Bootstrap Material Design -->
+  <link rel="stylesheet" type="text/css" href="../../../node_modules/bootstrap-material-design/dist/css/bootstrap-material-design.css">
+  <link rel="stylesheet" type="text/css" href="../../../node_modules/bootstrap-material-design/dist/css/ripples.min.css">
+  <!-- Custom styles -->
+  <link href="./content/css/main.css" rel="stylesheet">
+
+  <!-- JQuery -->
+  <script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap core JS -->
+  <script src="../../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- bootstrap Material core JS -->
+  <script src="../../../node_modules/bootstrap-material-design/dist/js/material.min.js"></script>
+  <!-- Init bootstrap material js -->
+  <script>$.material.init();</script>
+</head>
+
+<body>
+  <!-- Begin page content -->
+  <div class="container-fluid page-content">
+    <div class="row">
+      <!-- col 1 -->
+      <div class="col-sm-6" >
+        <!-- Stock Search -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-search" />
+          </div>
+          <div class="panel-body">
+            <form class="col-sm-12" id="search-form">
+              <div class="form-group">
+                <label from="searchInput">Rechercher des actions</label>
+
+                  <input type="text" class="form-control" id="searchInput" placeholder="exemple: 'yolo company'">
+              </div>
+            </form>
+            <!-- Stock list -->
+            <h4>Résultat</h4>
+            <div class="col-sm-12">
+              <table class="table table-hover">
+                <tr><td>yolo</td></tr>
+                <tr><td>yolo</td></tr>
+                <tr><td>yolo</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- / Stock search -->
+        <!-- Possessed stock -->
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-th-list" />
+          </div>
+          <div class="panel-body">
+            <h3>Actions possédées</h3>
+            <hr/>
+            <table class="table table-hover">
+              <tr><td>yolo</td></tr>
+              <tr><td>yolo</td></tr>
+              <tr><td>yolo</td></tr>
+            </table>
+          </div>
+        </div>
+        <!-- / Possessed stock -->
+      </div>
+      <!-- / col 1 -->
+
+      <!-- col 2 -->
+      <div class="col-sm-6">
+        <!-- graphs -->
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="http://i1-scripts.softpedia-static.com/screenshots/D3-js_7.png" width="500" />
+          </div>
+        </div>
+        <!-- / graphs -->
+        <!-- Prices graph -->
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-scale" />
+          </div>
+
+          <div class="panel-body">
+            Évolution des prix des stocks
+          </div>
+        </div>
+        <!-- / Prices graph -->
+      </div>
+      <!-- / col 2 -->
+    </div>
+    <!-- / row -->
+  </div>
+  <!-- / container-fluid -->
+</body>
+</html>
