@@ -1,0 +1,22 @@
+{
+  "name": "wally",
+  "description": "Application de gestion de portefeuille d'actions, Master 2 SID",
+  "main": "index.js",
+  "authors": [
+    "Guillaume DENIS"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Kangoula/Wally",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^1.12.4",
+    "bootstrap-material-design": "^0.5.10"
+  }
+}
