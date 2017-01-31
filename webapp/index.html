@@ -22,6 +22,7 @@
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Angular -->
   <script src="../bower_components/angular/angular.min.js"></script>
+  <script src="../bower_components/angular-route/angular-route.min.js"></script>
   <!-- Bootstrap core JS -->
   <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- bootstrap Material core JS -->
@@ -29,11 +30,20 @@
   <!-- Init bootstrap material js -->
   <script>$.material.init();</script>
 
-  <script src="../bower_components/angular-route/angular-route.min.js"></script>
+  <!-- App -->
   <script src="app/app.module.js"></script>
   <script src="app/search/search.module.js"></script>
   <script src="app/search/search.controller.js"></script>
   <script src="app/search/search.directive.js"></script>
+  <script src="app/possessed/possessed.module.js"></script>
+  <script src="app/possessed/possessed.controller.js"></script>
+  <script src="app/possessed/possessed.directive.js"></script>
+  <script src="app/variation/variation.module.js"></script>
+  <script src="app/variation/variation.controller.js"></script>
+  <script src="app/variation/variation.directive.js"></script>
+  <script src="app/graph/graph.module.js"></script>
+  <script src="app/graph/graph.controller.js"></script>
+  <script src="app/graph/graph.directive.js"></script>
 
 </head>
 
@@ -41,59 +51,24 @@
   <!-- Begin page content -->
   <div class="container-fluid page-content">
     <div class="row">
-      <!-- col 1 -->
       <div class="col-sm-6" >
         <div ng-controller="Search">
           <search></search>
         </div>
-
-
-        <!-- Possessed stock -->
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-th-list" />
-          </div>
-          <div class="panel-body">
-            <h3>Actions possédées</h3>
-            <hr/>
-            <table class="table table-hover">
-              <tr><td>yolo</td></tr>
-              <tr><td>yolo</td></tr>
-              <tr><td>yolo</td></tr>
-            </table>
-          </div>
+        <div ng-controller="Stock">
+          <stock></stock>
         </div>
-        <!-- / Possessed stock -->
       </div>
-      <!-- / col 1 -->
-
-      <!-- col 2 -->
       <div class="col-sm-6">
-        <!-- graphs -->
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <img src="http://i1-scripts.softpedia-static.com/screenshots/D3-js_7.png" width="500" />
-          </div>
+        <div ng-controller="Graph">
+          <graph></graph>
         </div>
-        <!-- / graphs -->
-        <!-- Prices graph -->
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-scale" />
-          </div>
-
-          <div class="panel-body">
-            Évolution des prix des stocks
-          </div>
-        </div>
-        <!-- / Prices graph -->
+      	<div ng-controller="Variation">
+          <variation></variation>
+	</div>
       </div>
-      <!-- / col 2 -->
     </div>
-    <!-- / row -->
   </div>
-  <!-- / container-fluid -->
-
 
 </body>
 </html>
