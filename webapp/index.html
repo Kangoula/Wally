@@ -20,45 +20,34 @@
 
   <!-- JQuery -->
   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- Angular -->
+  <script src="../bower_components/angular/angular.min.js"></script>
   <!-- Bootstrap core JS -->
   <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- bootstrap Material core JS -->
   <script src="../bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
   <!-- Init bootstrap material js -->
   <script>$.material.init();</script>
+
+  <script src="../bower_components/angular-route/angular-route.min.js"></script>
+  <script src="app/app.module.js"></script>
+  <script src="app/search/search.module.js"></script>
+  <script src="app/search/search.controller.js"></script>
+  <script src="app/search/search.directive.js"></script>
+
 </head>
 
-<body>
+<body ng-app="wally">
   <!-- Begin page content -->
   <div class="container-fluid page-content">
     <div class="row">
       <!-- col 1 -->
       <div class="col-sm-6" >
-        <!-- Stock Search -->
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-search" />
-          </div>
-          <div class="panel-body">
-            <form class="col-sm-12" id="search-form">
-              <div class="form-group">
-                <label from="searchInput">Rechercher des actions</label>
-
-                  <input type="text" class="form-control" id="searchInput" placeholder="exemple: 'yolo company'">
-              </div>
-            </form>
-            <!-- Stock list -->
-            <h4>Résultat</h4>
-            <div class="col-sm-12">
-              <table class="table table-hover">
-                <tr><td>yolo</td></tr>
-                <tr><td>yolo</td></tr>
-                <tr><td>yolo</td></tr>
-              </table>
-            </div>
-          </div>
+        <div ng-controller="Search">
+          <search></search>
         </div>
-        <!-- / Stock search -->
+
+
         <!-- Possessed stock -->
         <div class="panel panel-warning">
           <div class="panel-heading">
@@ -104,5 +93,7 @@
     <!-- / row -->
   </div>
   <!-- / container-fluid -->
+
+
 </body>
 </html>

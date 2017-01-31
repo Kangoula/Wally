@@ -17,7 +17,9 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "jquery": "^1.9.1",
-    "bootstrap-material-design": "^0.5.10"
+    "bootstrap-material-design": "^0.5.10",
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1"
   },
   "resolutions": {
     "jquery": "^2.2"
