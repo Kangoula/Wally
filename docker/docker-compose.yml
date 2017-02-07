@@ -1,6 +1,7 @@
 version: "2"
 services: 
   mongodb:
+    container_name: "wally_mongo"
     image: mongo:latest
     ports:
       - 27017:27017
