@@ -42,3 +42,4 @@ data/
 
 # VS code
 .vscode/
+docker/data/
