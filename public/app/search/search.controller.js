@@ -5,9 +5,9 @@
         .module('wally')
         .controller('Search', Search);
 
-    Search.$inject = ['$scope', 'Stocks']
+    Search.$inject = ['$scope', 'Stocks', 'Search']
 
-    function Search($scope, Stocks) {
+    function Search($scope, Stocks, Search) {
         var vm = this;
         vm.title = 'Search';
 
@@ -18,20 +18,16 @@
         function onChange(){
             var value = $scope.toSearch;
             if(value.length > 1){
-                 Stocks.query({}, onSuccess, onError);
+               Search.get({symbol:value}, onSuccess);
             }
         }
 
-       
-
         function onSuccess(response){
-            $scope.stocks = response;
+            if(response.query.results.quote.Ask){
+                var stock = response.query.results.quote;
+                $scope.stocks.push({name: stock.Name, price: stock.Ask, symbol: stock.Symbol});
+            }
         }
-
-        function onError(){
-            console.log("error");
-        }
-
         // $http.get("http://localhost:3000/stocks")
         // .then(function(response){
         //     if(response.status === 200){

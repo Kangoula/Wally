@@ -6,11 +6,10 @@
 		<form class="col-sm-12" id="search-form">
 			<div class="form-group">
 				<label from="searchInput">Rechercher des actions</label>
-					<input type="text" class="form-control" id="searchInput" placeholder="exemple: 'yolo company'" ng-model="toSearch" ng-change="onChange()">
+				<input type="text" class="form-control" id="searchInput" placeholder="exemple: 'yolo company'" ng-model="toSearch" ng-change="onChange()">
 			</div>
 		</form>
 		<hr/>
-		{{toSearch}}
 		<stocks list="stocks" />
 	</div>
 </div>
