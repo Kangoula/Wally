@@ -9,7 +9,9 @@
     return {
       restrict: 'E',
       scope: {
-        list: "="
+        list: "=",
+        loading: "=",
+        search: "="
       },
       templateUrl: 'app/stocks/stocks.html'
     };

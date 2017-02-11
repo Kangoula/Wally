@@ -1,24 +1,23 @@
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('wally')
     .factory('Search', Search);
 
-    Search.inject = ['$resource'];
+  Search.inject = ['$resource'];
 
-    function Search($resource){
-      var service = $resource('http://localhost:3000/api/search/:symbol', {symbol:'@symbol'}, {
-        //'query': {method: 'GET', isArray: true},
-        'get': {
-          method: 'GET',
-          transformResponse: function(data){
+  function Search($resource) {
+    var service = $resource('http://localhost:3000/api/search/:symbol', {}, {
+      'get': {
+        method: 'GET',
+        transformResponse: function(data){
             data = angular.fromJson(data);
             return data;
           }
-        }
-      });
+      }
+    });
 
-      return service;
-    }
+    return service;
+  }
 })();

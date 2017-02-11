@@ -1,6 +1,6 @@
-<div class="col-sm-12">
+<div class="col-sm-12" ng-controller="Stocks">
   <table ng-show="list.length > 0" class="table table-condensed">
-    <thead >
+    <thead>
       <th>
         Symbole
       </th>
@@ -8,20 +8,28 @@
         Nom
       </th>
       <th>
-        Prix (€)
+        Prix (USD)
       </th>
     </thead>
-    <tbody ng-repeat="stock in list">
+    <tbody ng-repeat="stock in list" >
       <tr>
         <td class="col-sm-3">{{stock.symbol}}</td>
         <td class="col-sm-4">{{stock.name}}</td>
-        <td class="col-sm-2">{{stock.price}} €</td>
+        <td class="col-sm-2">{{stock.price}}</td>
         <td class="col-sm-3">
-          <button class="btn btn-success">
+          <button class="btn btn-success" ng-click="buy(stock)" ng-show="search">
             Acheter
+          </button>
+          <button class="btn btn-info" ng-show="!search" >
+            <i class="material-icons">timeline</i>
           </button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div class="text-center">
+    <svg ng-show="loading" class="spinner" width="35px" height="35px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+      <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+    </svg>
+  </div>
 </div>
