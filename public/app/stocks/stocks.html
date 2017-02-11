@@ -1,0 +1,27 @@
+<div class="col-sm-12">
+  <table class="table table-condensed">
+    <thead>
+      <th>
+        Symbole
+      </th>
+      <th>
+        Nom
+      </th>
+      <th>
+        Prix (€)
+      </th>
+    </thead>
+    <tbody ng-repeat="stock in list">
+      <tr>
+        <td class="col-sm-3">{{stock.symbol}}</td>
+        <td class="col-sm-4">{{stock.name}}</td>
+        <td class="col-sm-2">{{stock.price}} €</td>
+        <td class="col-sm-3">
+          <button class="btn btn-success">
+            Acheter
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

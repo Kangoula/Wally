@@ -2,12 +2,12 @@
     'use strict';
 
     angular
-        .module('wally.stock')
-        .controller('Stock', Stock);
+        .module('wally')
+        .controller('MyStocks', MyStocks);
 
-    Stock.$inject = ['$scope']
+    MyStocks.$inject = ['$scope']
 
-    function Stock($scope) {
+    function MyStocks($scope) {
         var vm = this;
 
         console.log('stock');

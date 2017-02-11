@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-  .module('wally.graph')
+  .module('wally')
   .controller('Graph', Graph);
 
   Graph.$inject = ['$scope']

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('wally.variation')
+        .module('wally')
         .controller('Variation', Variation);
 
     Variation.$inject = ['$scope']

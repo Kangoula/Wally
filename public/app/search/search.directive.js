@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('wally.search')
+    .module('wally')
     .directive('search', Template);
 
     function Template(){

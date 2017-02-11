@@ -19,6 +19,7 @@
     "angular-route": "^1.6.2",
     "bootstrap-material-design": "0.5.10",
     "c3": "^0.4.11",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "angular-resource": "^1.6.2"
   }
 }

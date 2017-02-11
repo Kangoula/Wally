@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('wally.stock')
-    .directive('stock', Template);
+    .module('wally')
+    .directive('mystocks', Template);
 
     function Template(){
       return {

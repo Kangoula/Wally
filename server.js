@@ -21,7 +21,7 @@ app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 // parse body of request in json
 app.use(bodyParser.json());
 
-app.route('/stocks')
+app.route('/api/stocks')
 .get(function(req, res, next){
   Stock.find({}, function(err, stocks){
     if(err){

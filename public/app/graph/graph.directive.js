@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('wally.graph')
+    .module('wally')
     .directive('graph', Template);
 
     function Template(){
