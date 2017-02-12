@@ -13,7 +13,7 @@ var StockSchema = new Schema({
   name: String,
   symbol: String,
   price: Number,
-  dateAdded: { type: Date, default: Date.now }
+  dateAdded: Date
 });
 var Stock = mongoose.model('Stock', StockSchema);
 
@@ -34,8 +34,16 @@ app.route('/api/stocks')
     })
   })
   .post(function (req, res, next) {
-    var stock = new Stock(req.body);
-    stock.dateAdded = Date.now;
+
+    var s = {
+      symbol: req.body.symbol,
+      price: req.body.price,
+      name: req.body.name,
+      dateAdded: new Date(req.body.dateAdded)
+    };
+
+    var stock = new Stock(s);
+
     stock.save(function (err) {
       if (err) {
         return next(err);
@@ -64,5 +72,24 @@ app.route('/api/search/:symbol')
     });
   });
 
+app.route('/api/stats/wallet')
+  .get(function(req, res, next){
+    Stock.find({}).sort({dateAdded: 'asc'}).exec(function(err, stocks){
+      if(err){
+        return next(err);
+      }
+      else {
+        var x = [];
+        var y = [];
+        var total = 0;
+        stocks.forEach(function(elem){
+          x.push(elem.dateAdded);
+          total += elem.price;
+          y.push(total);
+        });
+        return res.json({x:x, y:y});
+      }
+    });
+  });
 
 app.listen('3000');

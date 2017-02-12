@@ -1,27 +1,85 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular
-        .module('wally')
-        .controller('Variation', Variation);
+  angular
+    .module('wally')
+    .controller('Variation', Variation);
 
-    Variation.$inject = ['$scope']
+  Variation.$inject = ['$scope', '$http', '$rootScope'];
 
-    function Variation($scope) {
-      var vm = this;
-      $scope.chart = null;
-      console.log('variation');
+  function Variation($scope, $http) {
+    var vm = this;
+    $scope.chart = null;
+    $scope.showChart = showChart;
+    $scope.$on('stock.bought', updateGraph);
 
-      $scope.showChart = function() {
-        $scope.chart = c3.generate({
-          bindto: '#chart',
-          data: {
-            columns: [
-              ['data1', 30, 200, 100, 400, 150, 250],
-              ['data2', 50, 20, 10, 40, 15, 25]
-            ]
-          }
+    vm.x = ['date'];
+    vm.y = ['wallet'];
+
+
+    setTimeout(function () {
+      $http({
+        method: 'GET',
+        url: '/api/stats/wallet'
+      }).then(function onSuccess(response) {
+ 
+        var dates = response.data.x.map(function(val){
+          return new Date(val);
         });
-      }
+
+        vm.x.push.apply(vm.x, dates);
+        vm.y.push.apply(vm.y, response.data.y);
+        $scope.chart.load({
+          columns: [
+              vm.x,
+              vm.y
+            ]
+        });
+      });
+    }, 1000);
+
+    function updateGraph(event, value){
+
+      console.log(value);
+      vm.x.push(value.dateAdded);
+      if(vm.y.length > 1)
+        vm.y.push(vm.y[vm.y.length-1] + value.price);
+      else
+        vm.y.push(value.price);
+
+      console.log(vm.x[vm.y.length-1], vm.y[vm.y.length-1]);
+
+      $scope.chart.load({
+        columns: [
+          vm.x,
+          vm.y
+        ]
+      });
     }
+
+   function showChart() {
+      $scope.chart = c3.generate({
+        bindto: '#chart',
+        data: {
+          x: 'date',
+          columns: [
+            vm.x,
+            vm.y
+          ],
+          type: 'area'
+        },
+        axis : {
+        x : {
+            type : 'timeseries',
+            tick: {
+              rotate: 90,
+              fit: false,
+              centered: true,
+              format: '%Y-%m-%d %H:%M:%S '
+            },
+        }
+    }
+      });
+    }
+  }
 })();

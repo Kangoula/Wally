@@ -12,7 +12,16 @@
       $scope.buy = buy;
 
       function buy(stock){
-        var rep = StocksService.save(stock)
+
+        var s = {
+          dateAdded: new Date(),
+          name: stock.name,
+          price: stock.price,
+          symbol: stock.symbol
+        };
+
+        var rep = StocksService.save(s);
+
         $rootScope.$broadcast('stock.bought', rep);    
       }
 
