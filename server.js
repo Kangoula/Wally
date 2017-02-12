@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.route('/api/stocks')
   .get(function (req, res, next) {
-    Stock.find({}, function (err, stocks) {
+    Stock.find({}).sort({dateAdded: 'desc'}).exec(function (err, stocks) {
       if (err) {
         return next(err);
       } else {
