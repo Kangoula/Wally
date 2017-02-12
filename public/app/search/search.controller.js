@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -17,23 +17,29 @@
         $scope.loading = false;
         $scope.search = true;
 
-        function onChange(){
+        function onChange() {
             var value = $scope.toSearch;
-            if(value.length > 2){
+            if (value.length > 2) {
                 $scope.loading = true;
-                Search.get({symbol:value}, onSuccess, onError);
+                Search.get({
+                    symbol: value
+                }, onSuccess, onError);
             }
         }
 
-        function onSuccess(response){
+        function onSuccess(response) {
             $scope.loading = false;
-            if(response.query.results.quote.Ask){
+            if (response.query.results.quote.Ask) {
                 var stock = response.query.results.quote;
-                $scope.stocks[0] = {name: stock.Name, price: stock.Ask, symbol: stock.Symbol};
+                $scope.stocks[0] = {
+                    name: stock.Name,
+                    price: stock.Ask,
+                    symbol: stock.Symbol
+                };
             }
         }
 
-        function onError(err){
+        function onError(err) {
             $scope.loading = false;
         }
     }

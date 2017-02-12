@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +8,15 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="">
-
   <title>Wally</title>
-
   <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
   <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap-material-design/dist/css/ripples.min.css">
   <link href="/bower_components/c3/c3.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/icon?family=Material+Icons">
-
   <!-- Custom styles -->
   <link href="./content/css/main.css" rel="stylesheet">
-
   <!-- vendor -->
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/angular/angular.min.js"></script>
@@ -30,8 +27,10 @@
   <script src="/bower_components/d3/d3.min.js" charset="utf-8"></script>
   <script src="/bower_components/c3/c3.min.js"></script>
   <!-- Init bootstrap material js -->
-  <script>$.material.init();</script>
-i
+  <script>
+    $.material.init();
+  </script>
+  i
   <!-- App -->
   <script src="app/app.module.js"></script>
   <script src="app/services/stocks.service.js"></script>
@@ -46,31 +45,23 @@ i
   <script src="app/graph/graph.directive.js"></script>
   <script src="app/stocks/stocks.directive.js"></script>
   <script src="app/stocks/stocks.controller.js"></script>
-
 </head>
 
 <body ng-app="wally">
   <!-- Begin page content -->
   <div class="container-fluid page-content">
     <div class="row">
-      <div class="col-sm-6" >
-        <div>
-          <search></search>
-        </div>
-        <div>
-          <mystocks></mystocks>
-        </div>
+      <div class="col-sm-6">
+        <search></search>
+        <mystocks></mystocks>
       </div>
       <div class="col-sm-6">
-        <div ng-controller="Graph">
-          <graph></graph>
-        </div>
-      	<div ng-controller="Variation">
-          <variation></variation>
-	</div>
+        <graph></graph>
+        <variation></variation>
       </div>
     </div>
   </div>
-
+  </div>
 </body>
+
 </html>

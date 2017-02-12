@@ -14,7 +14,7 @@
     $scope.$on('stock.bought', updateGraph);
 
     vm.x = ['date'];
-    vm.y = ['wallet'];
+    vm.y = ['montant du portefeuille (USD)'];
 
 
     setTimeout(function () {

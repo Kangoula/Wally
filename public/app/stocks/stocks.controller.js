@@ -1,29 +1,29 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    angular
-        .module('wally')
-        .controller('Stocks', Stocks);
+  angular
+    .module('wally')
+    .controller('Stocks', Stocks);
 
-    Stocks.$inject = ['$scope', 'StocksService', '$rootScope']
+  Stocks.$inject = ['$scope', 'StocksService', '$rootScope']
 
-    function Stocks($scope, StocksService, $rootScope) {
-      
-      $scope.buy = buy;
+  function Stocks($scope, StocksService, $rootScope) {
 
-      function buy(stock){
+    $scope.buy = buy;
 
-        var s = {
-          dateAdded: new Date(),
-          name: stock.name,
-          price: stock.price,
-          symbol: stock.symbol
-        };
+    function buy(stock) {
 
-        var rep = StocksService.save(s);
+      var s = {
+        dateAdded: new Date(),
+        name: stock.name,
+        price: stock.price,
+        symbol: stock.symbol
+      };
 
-        $rootScope.$broadcast('stock.bought', rep);    
-      }
+      var rep = StocksService.save(s);
 
+      $rootScope.$broadcast('stock.bought', rep);
     }
+
+  }
 })();

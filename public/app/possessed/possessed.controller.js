@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -18,16 +18,16 @@
 
         StocksService.query({}, onSuccess, onError);
 
-        function onSuccess(response){
+        function onSuccess(response) {
             $scope.loading = false;
             $scope.stocks = response;
         }
 
-        function onError(){
+        function onError() {
             $scope.loading = false;
         }
 
-        function updateStoks(event, value){
+        function updateStoks(event, value) {
             $scope.stocks.unshift(value);
         }
     }

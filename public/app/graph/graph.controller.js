@@ -68,7 +68,7 @@
         .entries(data);
 
       var svg = d3.select("#graph").append("svg")
-        .attr("id","calendar")
+        .attr("id", "calendar")
         .attr("width", "100%")
         .attr("viewBox", "0 0 " + (xOffset + width) + " 540")
 

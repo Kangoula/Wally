@@ -1,11 +1,11 @@
-(function(){
+(function () {
   'use strict';
 
   angular
     .module('wally')
     .directive('stocks', Template);
 
-  function Template(){
+  function Template() {
     return {
       restrict: 'E',
       scope: {

@@ -11,10 +11,10 @@
     var service = $resource('http://localhost:3000/api/search/:symbol', {}, {
       'get': {
         method: 'GET',
-        transformResponse: function(data){
-            data = angular.fromJson(data);
-            return data;
-          }
+        transformResponse: function (data) {
+          data = angular.fromJson(data);
+          return data;
+        }
       }
     });
 

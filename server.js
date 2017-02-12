@@ -40,7 +40,7 @@ app.route('/api/stocks')
 
     // create a stock with the values in request body
     var s = {
-      symbol: req.body.symbol,
+      symbol: req.body.symbol.toUpperCase(),
       price: req.body.price,
       name: req.body.name,
       dateAdded: new Date(req.body.dateAdded)
@@ -107,42 +107,45 @@ app.route('/api/stats/wallet')
 // get stats for the calendar view
 app.route('/api/stats/calendar')
   .get(function (req, res, next) {
-      var map = new Map();
+    var map = new Map();
 
-      Stock.find({}).sort({
-        dateAdded: 'asc'
-      }).exec(function (err, stocks) {
-        if(!err){
-          // handle sorting and counting with a Map
-          stocks.forEach(function(elem){
-            var d = new Date(elem.dateAdded);
-            var parsed = d.getFullYear() + '/' + parseMonth(d.getMonth()) + '/' + d.getDate();
-            
-            if(map.has(parsed)){
-              map.set(parsed, map.get(parsed)+1);
-            } else {
-              map.set(parsed, 1);
-            }
-          });
+    Stock.find({}).sort({
+      dateAdded: 'asc'
+    }).exec(function (err, stocks) {
+      if (!err) {
+        // handle sorting and counting with a Map
+        stocks.forEach(function (elem) {
+          var d = new Date(elem.dateAdded);
+          var parsed = d.getFullYear() + '/' + parseMonth(d.getMonth()) + '/' + d.getDate();
 
-          // array of object to return
-          var array = [];
-          map.forEach(function(v,k){
-            array.push({date: k, value: v});
+          if (map.has(parsed)) {
+            map.set(parsed, map.get(parsed) + 1);
+          } else {
+            map.set(parsed, 1);
+          }
+        });
+
+        // array of object to return
+        var array = [];
+        map.forEach(function (v, k) {
+          array.push({
+            date: k,
+            value: v
           });
-          
-          return res.json(array);
-        } else {
-          return next(err);
-        }
-      });
+        });
+
+        return res.json(array);
+      } else {
+        return next(err);
+      }
+    });
   });
 
-function parseMonth(month){
-  if(month < 9){
-    return '0'+(month+1);
+function parseMonth(month) {
+  if (month < 9) {
+    return '0' + (month + 1);
   } else {
-    return (month+1);
+    return (month + 1);
   }
 }
 
