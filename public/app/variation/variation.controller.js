@@ -22,8 +22,8 @@
         method: 'GET',
         url: '/api/stats/wallet'
       }).then(function onSuccess(response) {
- 
-        var dates = response.data.x.map(function(val){
+
+        var dates = response.data.x.map(function (val) {
           return new Date(val);
         });
 
@@ -31,23 +31,23 @@
         vm.y.push.apply(vm.y, response.data.y);
         $scope.chart.load({
           columns: [
-              vm.x,
-              vm.y
-            ]
+            vm.x,
+            vm.y
+          ]
         });
       });
     }, 1000);
 
-    function updateGraph(event, value){
+    function updateGraph(event, value) {
 
-      console.log(value);
       vm.x.push(value.dateAdded);
-      if(vm.y.length > 1)
-        vm.y.push(vm.y[vm.y.length-1] + value.price);
-      else
-        vm.y.push(value.price);
+      if (vm.y.length > 1) {
+        vm.y.push(Number(vm.y[vm.y.length - 1]) + Number(value.price));
+      } else {
+        vm.y.push(Number(value.price));
+      }
 
-      console.log(vm.x[vm.y.length-1], vm.y[vm.y.length-1]);
+      console.log(vm.x, vm.y);
 
       $scope.chart.load({
         columns: [
@@ -57,7 +57,7 @@
       });
     }
 
-   function showChart() {
+    function showChart() {
       $scope.chart = c3.generate({
         bindto: '#chart',
         data: {
@@ -68,17 +68,17 @@
           ],
           type: 'area'
         },
-        axis : {
-        x : {
-            type : 'timeseries',
+        axis: {
+          x: {
+            type: 'timeseries',
             tick: {
               rotate: 90,
               fit: false,
               centered: true,
               format: '%Y-%m-%d %H:%M:%S '
             },
+          }
         }
-    }
       });
     }
   }
