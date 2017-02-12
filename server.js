@@ -25,7 +25,10 @@ app.use(bodyParser.json());
 
 app.route('/api/stocks')
   .get(function (req, res, next) {
-    Stock.find({}).sort({dateAdded: 'desc'}).exec(function (err, stocks) {
+    // get all stocks ordered by date
+    Stock.find({}).sort({
+      dateAdded: 'desc'
+    }).exec(function (err, stocks) {
       if (err) {
         return next(err);
       } else {
@@ -35,6 +38,7 @@ app.route('/api/stocks')
   })
   .post(function (req, res, next) {
 
+    // create a stock with the values in request body
     var s = {
       symbol: req.body.symbol,
       price: req.body.price,
@@ -60,6 +64,7 @@ app.route('/api/search/:symbol')
     var query = encodeURIComponent('select * from yahoo.finance.quotes where symbol = "' + symbol + '"');
     var url = "https://query.yahooapis.com/v1/public/yql?q=env%20'store%3A%2F%2Fdatatables.org%2Falltableswithkeys'%3B%20" + query + "&format=json"
 
+    // search yahoo finance for the symbol
     request(url, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         var b = JSON.parse(body);
@@ -72,24 +77,73 @@ app.route('/api/search/:symbol')
     });
   });
 
+// get stats for the wallet amount
 app.route('/api/stats/wallet')
-  .get(function(req, res, next){
-    Stock.find({}).sort({dateAdded: 'asc'}).exec(function(err, stocks){
-      if(err){
+  .get(function (req, res, next) {
+    // get all stocks ordered by date, from the last to the most recent
+    Stock.find({}).sort({
+      dateAdded: 'asc'
+    }).exec(function (err, stocks) {
+      if (err) {
         return next(err);
-      }
-      else {
+      } else {
         var x = [];
         var y = [];
         var total = 0;
-        stocks.forEach(function(elem){
+        // compute wallet total amount
+        stocks.forEach(function (elem) {
           x.push(elem.dateAdded);
           total += elem.price;
           y.push(total);
         });
-        return res.json({x:x, y:y});
+        return res.json({
+          x: x,
+          y: y
+        });
       }
     });
   });
+
+// get stats for the calendar view
+app.route('/api/stats/calendar')
+  .get(function (req, res, next) {
+      var map = new Map();
+
+      Stock.find({}).sort({
+        dateAdded: 'asc'
+      }).exec(function (err, stocks) {
+        if(!err){
+          // handle sorting and counting with a Map
+          stocks.forEach(function(elem){
+            var d = new Date(elem.dateAdded);
+            var parsed = d.getFullYear() + '/' + parseMonth(d.getMonth()) + '/' + d.getDate();
+            
+            if(map.has(parsed)){
+              map.set(parsed, map.get(parsed)+1);
+            } else {
+              map.set(parsed, 1);
+            }
+          });
+
+          // array of object to return
+          var array = [];
+          map.forEach(function(v,k){
+            array.push({date: k, value: v});
+          });
+          
+          return res.json(array);
+        } else {
+          return next(err);
+        }
+      });
+  });
+
+function parseMonth(month){
+  if(month < 9){
+    return '0'+(month+1);
+  } else {
+    return (month+1);
+  }
+}
 
 app.listen('3000');

@@ -47,8 +47,6 @@
         vm.y.push(Number(value.price));
       }
 
-      console.log(vm.x, vm.y);
-
       $scope.chart.load({
         columns: [
           vm.x,

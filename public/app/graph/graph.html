@@ -1,7 +1,20 @@
 <!-- graphs -->
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div id="graph" ng-init="showGraph()" ></div>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Achats de cette année
+    </h3>
+	</div>
+  <div class="panel-body" id="calendarPanelBody" >
+    <div ng-show="noData" id="noData">
+      <i class="material-icons">not_interested</i>
+      <br>
+      <span>
+        Pas de données à afficher <br>
+        Il fautdrait peut-être penser à acheter des actions !
+      </span>
+    </div>
+    <div id="graph" ng-init="showGraph()"></div>
   </div>
 </div>
 <!-- / graphs -->
