@@ -70,7 +70,7 @@
           x: {
             type: 'timeseries',
             tick: {
-              rotate: 90,
+              rotate: 105,
               fit: false,
               centered: true,
               format: '%Y-%m-%d %H:%M:%S '

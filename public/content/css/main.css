@@ -1,7 +1,13 @@
+body {
+  background-color: none;
+  background-image: url(../back.jpg) !important;
+}
 .page-content {
   padding: 25px;
 }
-
+div.panel {
+  border-radius: 5px !important;
+}
 #search-form {
   margin-bottom: 20px;
 }
