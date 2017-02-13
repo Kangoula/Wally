@@ -19,7 +19,7 @@
 
         function onChange() {
             var value = $scope.toSearch;
-            if (value.length > 2) {
+            if (value.length > 1) {
                 $scope.loading = true;
                 Search.get({
                     symbol: value
