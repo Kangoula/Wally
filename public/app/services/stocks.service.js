@@ -3,11 +3,12 @@
 
   angular
     .module('wally')
-    .factory('StocksService', StocksService);
+    .factory('Stock', Stock);
 
-  StocksService.inject = ['$resource'];
+  Stock.inject = ['$resource'];
 
-  function StocksService($resource) {
+  function Stock($resource) {
+
     var service = $resource('http://localhost:3000/api/stocks/:symbol', {}, {
       'query': {
         method: 'GET',
@@ -21,7 +22,10 @@
         }
       },
       'save': {
-        method: 'POST'
+        method: 'POST',
+        transformResponse: function(data){
+          return angular.fromJson(data);
+        }
       },
       'update': {
         method: 'PUT'
