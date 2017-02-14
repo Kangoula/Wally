@@ -5,47 +5,42 @@
     .module('wally')
     .controller('Variation', Variation);
 
-  Variation.$inject = ['$scope', '$http', '$rootScope'];
+  Variation.$inject = ['$scope', '$rootScope', 'Wallet'];
 
-  function Variation($scope, $http) {
+  function Variation($scope, $http, Wallet) {
     var vm = this;
     $scope.chart = null;
     $scope.showChart = showChart;
-    $scope.$on('stock.bought', updateGraph);
+    $scope.$on('wallet.updated', updateGraph);
 
     vm.x = ['date'];
     vm.y = ['montant du portefeuille (USD)'];
 
+    Wallet.query({}, onSuccess);
 
     setTimeout(function () {
-      $http({
-        method: 'GET',
-        url: '/api/stats/wallet'
-      }).then(function onSuccess(response) {
-
-        var dates = response.data.x.map(function (val) {
-          return new Date(val);
-        });
-
-        vm.x.push.apply(vm.x, dates);
-        vm.y.push.apply(vm.y, response.data.y);
-        $scope.chart.load({
+      $scope.chart.load({
           columns: [
             vm.x,
             vm.y
           ]
         });
-      });
     }, 1000);
 
-    function updateGraph(event, value) {
+    function onSuccess(response){
+      // convert String into date
+      var dates = response.x.map(function (val) {
+          return new Date(val);
+        });
 
-      vm.x.push(value.dateAdded);
-      if (vm.y.length > 1) {
-        vm.y.push(Number(vm.y[vm.y.length - 1]) + Number(value.price));
-      } else {
-        vm.y.push(Number(value.price));
-      }
+      vm.x.push.apply(vm.x, dates);
+      vm.y.push.apply(vm.y, response.y);
+    }
+
+    function updateGraph(event, value) {
+      // get latest wallet value from event
+      vm.x.push(new Date(value.date));
+      vm.y.push(Number(value.total));
 
       $scope.chart.load({
         columns: [
@@ -63,8 +58,7 @@
           columns: [
             vm.x,
             vm.y
-          ],
-          type: 'area'
+          ]
         },
         axis: {
           x: {
