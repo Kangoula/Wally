@@ -5,9 +5,9 @@
         .module('wally')
         .controller('Search', Search);
 
-    Search.$inject = ['$scope', 'StocksService', 'Search']
+    Search.$inject = ['$scope', 'Stock', 'Search']
 
-    function Search($scope, StocksService, Search) {
+    function Search($scope, Stock, Search) {
         var vm = this;
         vm.title = 'Search';
 
@@ -24,6 +24,9 @@
                 Search.get({
                     symbol: value
                 }, onSuccess, onError);
+            } else {
+                $scope.loading = false;
+                $scope.stocks = [];
             }
         }
 
