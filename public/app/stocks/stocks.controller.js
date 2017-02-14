@@ -5,24 +5,54 @@
     .module('wally')
     .controller('Stocks', Stocks);
 
-  Stocks.$inject = ['$scope', 'StocksService', '$rootScope']
+  Stocks.$inject = ['$scope', 'Stock', '$rootScope', 'Search', 'Wallet']
 
-  function Stocks($scope, StocksService, $rootScope) {
+  function Stocks($scope, Stock, $rootScope, Search, Wallet) {
+
+    var vm = this;
+    vm.tot = 0;
 
     $scope.buy = buy;
+    $scope.sell = sell;
+
+    function sell(stock){
+      
+      // delete stock from db
+      console.log("sell");
+      Stock.delete({
+        id: stock._id,
+      }, (res) => {
+        $rootScope.$broadcast('stock.updated');
+      });
+
+      // add current value to wallet
+      Wallet.post({
+        price: stock.currentPrice, 
+        type: "+"
+      }, (res) => {
+        // broadcast
+        $rootScope.$broadcast('wallet.updated', res);
+      });
+    }
 
     function buy(stock) {
+      // var s = 
 
-      var s = {
-        dateAdded: new Date(),
+      Stock.save({
+        //dateAdded: new Date(),
         name: stock.name,
         price: stock.price,
-        symbol: stock.symbol
-      };
-
-      var rep = StocksService.save(s);
-
-      $rootScope.$broadcast('stock.bought', rep);
+        symbol: stock.symbol.toUpperCase()
+      }, (res) => {
+        $rootScope.$broadcast('stock.updated');
+      });
+      // remove current value to Wallet
+      Wallet.post({
+        price: stock.price,
+        type: "-"
+      }, (res) => {
+        $rootScope.$broadcast('wallet.updated', res);
+      });
     }
 
   }
