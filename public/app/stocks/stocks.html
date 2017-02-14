@@ -8,21 +8,28 @@
         Nom
       </th>
       <th>
-        Prix (USD)
+        Prix d'achat (USD)
       </th>
       <th ng-show="!search">
-        Date d'achat
+        Valeur actuelle
+      </th>
+      <th ng-show="!search">
+        Nombre
       </th>
     </thead>
-    <tbody ng-repeat="stock in list">
-      <tr>
+    <tbody >
+      <tr ng-repeat="stock in list">
         <td class="col-sm-2">{{stock.symbol}}</td>
         <td class="col-sm-3">{{stock.name}}</td>
-        <td class="col-sm-1">{{stock.price}}</td>
-        <td ng-show="!search" class="col-sm-3">{{stock.dateAdded}}</td>
-        <td class="col-sm-3">
-          <button class="btn btn-success" ng-click="buy(stock)">
+        <td class="col-sm-2">{{stock.price}}</td>
+        <td class="col-sm-2" ng-if="!search">{{stock.currentPrice}}</td>
+        <td class="col-sm-1" ng-if="!search">{{stock.count}}</td>
+        <td class="col-sm-2" >
+          <button ng-if="search" class="btn btn-success" ng-click="buy(stock)">
             Acheter
+          </button>
+           <button ng-if="!search" class="btn btn-info" ng-click="sell(stock)" >
+            Vendre
           </button>
         </td>
       </tr>
