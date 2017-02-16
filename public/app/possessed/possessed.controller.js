@@ -15,20 +15,22 @@
         $scope.stocks = [];
         $scope.loading = true;
         $scope.search = false;
-        $scope.mystocks = Stock;
         $scope.$on('stock.updated', updateStoks);
 
         Stock.query({}, onSuccess, onError);
         //updateStoks();
 
         function onSuccess(response) {
-
+             var back = angular.copy($scope.stocks);
+             $scope.stocks = back;
             if (response.length > 0) {
+                vm.all = [];
                 // get current price for each Stock
                 response.forEach(function (value) {
-                    vm.getCurrentPrice(value)
+                    vm.getCurrentPrice(value);
                 });
                 $scope.loading = false;
+                console.log(vm.all);
                 $scope.stocks = vm.all;
             } else {
                 $scope.loading = false;
@@ -47,12 +49,12 @@
             Stock.query({}, onSuccess, onError);
         }
 
-        function getCurrentPrice(value) {
+        function getCurrentPrice(stock) {
             Search.get({
-                symbol: value.symbol
-            }, function (res) {
-                value.currentPrice = res.query.results.quote.Ask;
-                vm.all.push(value);
+                symbol: stock.symbol
+            }, (res) => {
+                stock.currentPrice = res.query.results.quote.Ask;
+                vm.all.push(stock);
             });
         }
     }

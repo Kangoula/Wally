@@ -9,7 +9,7 @@
 
   function Stock($resource) {
 
-    var service = $resource('http://localhost:3000/api/stocks/:symbol', {}, {
+    var service = $resource('http://localhost:3000/api/stocks/:id', {}, {
       'query': {
         method: 'GET',
         isArray: true

@@ -1,20 +1,23 @@
 <div class="col-sm-12" ng-controller="Stocks">
-  <table ng-show="list.length > 0" class="table table-condensed">
+  <table ng-show="!search || (search && list.length > 0)" class="table table-condensed">
     <thead>
-      <th>
+      <th class="col-sm-2" >
         Symbole
       </th>
-      <th>
+      <th class="col-sm-3" >
         Nom
       </th>
-      <th>
-        Prix d'achat (USD)
+      <th class="col-sm-2">
+        Prix d'achat
       </th>
-      <th ng-show="!search">
+      <th ng-show="!search" class="col-sm-2">
         Valeur actuelle
       </th>
-      <th ng-show="!search">
+      <th ng-show="!search" class="col-sm-1 text-center">
         Nombre
+      </th>
+      <th ng-show="!search" class="col-sm-2 text-center">
+        
       </th>
     </thead>
     <tbody >
@@ -23,8 +26,8 @@
         <td class="col-sm-3">{{stock.name}}</td>
         <td class="col-sm-2">{{stock.price}}</td>
         <td class="col-sm-2" ng-if="!search">{{stock.currentPrice}}</td>
-        <td class="col-sm-1" ng-if="!search">{{stock.count}}</td>
-        <td class="col-sm-2" >
+        <td class="col-sm-1 text-center" ng-if="!search">{{stock.count}}</td>
+        <td class="col-sm-2 text-center" >
           <button ng-if="search" class="btn btn-success" ng-click="buy(stock)">
             Acheter
           </button>

@@ -17,15 +17,16 @@
     var calX = 25;
     var width = 960;
     var height = 163;
+
     var parseDate = d3.time.format("%Y/%m/%d").parse;
     const format = d3.time.format("%d-%m-%Y");
-    const toolDate = d3.time.format("%d/%b/%y");
+    const toolDate = d3.time.format("%d/%b/%y %x");
 
     $scope.graph = null;
     $scope.noData = true;
     $scope.showGraph = showGraph;
 
-    $scope.$on('stock.bought', showGraph);
+    $scope.$on('stock.updated', showGraph);
 
     function showGraph() {
       $http({
@@ -46,7 +47,7 @@
 
     function draw(data) {
 
-      var units = " Achats";
+      var units = " Actions acquises";
       var breaks = [2, 5, 10, 20];
       var colours = ["#ffffd4", "#fed98e", "#fe9929", "#d95f0e", "#993404"];
 

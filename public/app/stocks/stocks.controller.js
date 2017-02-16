@@ -16,13 +16,11 @@
     $scope.sell = sell;
 
     function sell(stock){
-      
       // delete stock from db
-      console.log("sell");
       Stock.delete({
         id: stock._id,
       }, (res) => {
-        $rootScope.$broadcast('stock.updated');
+        $rootScope.$broadcast('stock.updated', res);
       });
 
       // add current value to wallet
@@ -44,7 +42,7 @@
         price: stock.price,
         symbol: stock.symbol.toUpperCase()
       }, (res) => {
-        $rootScope.$broadcast('stock.updated');
+        $rootScope.$broadcast('stock.updated', res);
       });
       // remove current value to Wallet
       Wallet.post({

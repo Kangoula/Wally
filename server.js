@@ -17,10 +17,12 @@ var StockSchema = new Schema({
   price: Number,
   dateAdded: Date
 });
+
 var WalletSchema = new Schema({
   date: Date,
   total: Number
 });
+
 var Stock = mongoose.model('Stock', StockSchema);
 var Wallet = mongoose.model('Wallet', WalletSchema);
 
@@ -32,54 +34,62 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 app.use('/api', router);
 
+Stock.findAll = function (callback) {
+  const stock = this;
+
+  stock.aggregate([{
+      "$sort": {
+        'symbol': -1,
+        'price': 1
+      }
+    },
+    {
+      "$group": {
+        _id: {
+          "name": "$name",
+          "price": "$price",
+        },
+        result: {
+          "$last": {
+            id: "$_id",
+            symbol: "$symbol"
+          }
+        },
+        count: {
+          $sum: 1
+        }
+      }
+    }
+  ]).exec((err, array) => {
+    if (!err) {
+      var stocks = array.map((val) => {
+        return {
+          "_id": val.result.id,
+          "name": val._id.name,
+          "symbol": val.result.symbol,
+          "price": val._id.price,
+          "count": val.count,
+        }
+      });
+      return callback(null, stocks);
+    } else {
+      return callback(err, null);
+    }
+  });
+}
 
 // STOCKS 
 router.route('/stocks')
   // get all stocks 
   .get((req, res, next) => {
     console.log("[GET] /stocks ");
-    // group stocks buy name and price
-    Stock.aggregate([{
-          "$sort": {
-            'symbol': -1,
-            'price': 1
-          }
-        },
-        {
-          "$group": {
-            _id: {
-              "name": "$name",
-              "price": "$price",
-            },
-            result: {
-              "$last": {
-                id: "$_id",
-                symbol: "$symbol"
-              }
-            },
-            count: {
-              $sum: 1
-            }
-          }
-        }
-      ])
-      .exec((err, array) => {
-        if (!err) {
-          var stocks = array.map((val) => {
-            
-            return {
-              "_id": val.result.id,
-              "name": val._id.name,
-              "symbol": val.result.symbol,
-              "price": val._id.price,
-              "count": val.count,
-            }
-          });
-          return res.json(stocks);
-        } else {
-          return next(err);
-        }
-      });
+    Stock.findAll(function (err, stocks) {
+      if (!err) {
+        return res.json(stocks);
+      } else {
+        next(err);
+      }
+    });
   })
   // create new stock
   .post((req, res, next) => {
@@ -97,15 +107,19 @@ router.route('/stocks')
         return next(err);
       } else {
         console.log("Created new stock with id : " + stock._id);
+        
         return res.json(stock);
       }
     });
-  })
+  });
+
+router.route('/stocks/:id')
   // delete stock
   .delete((req, res, next) => {
-    console.log("[DELETE] /stocks")
+    console.log("[DELETE] /stocks/" + req.params.id);
+
     Stock.remove({
-      id: req.param.id
+      _id: req.params.id
     }).exec((err) => {
       if (err) {
         return next(err);
@@ -179,7 +193,7 @@ router.route('/wallet')
             x: x,
             y: y
           });
-          
+
         } else {
           return next(err);
         }
@@ -190,7 +204,7 @@ router.route('/wallet')
 router.route('/search/:symbol')
   .get((req, res, next) => {
     var symbol = req.params.symbol;
-    console.log("[GET] /search/"+symbol);
+    console.log("[GET] /search/" + symbol);
 
     var query = encodeURIComponent('select * from yahoo.finance.quotes where symbol = "' + symbol + '"');
     var url = "https://query.yahooapis.com/v1/public/yql?q=env%20'store%3A%2F%2Fdatatables.org%2Falltableswithkeys'%3B%20" + query + "&format=json"
