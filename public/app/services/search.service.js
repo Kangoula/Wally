@@ -12,8 +12,11 @@
       'get': {
         method: 'GET',
         transformResponse: function (data) {
-          data = angular.fromJson(data);
-          return data;
+          if(data !== "Not Found"){
+            return angular.fromJson(data);
+          } else {
+            return 404;
+          }
         }
       }
     });

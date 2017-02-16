@@ -39,10 +39,13 @@
                     price: stock.Ask,
                     symbol: stock.Symbol
                 };
+            } else {
+                $scope.stocks = [];
             }
         }
 
         function onError(err) {
+            $scope.stocks = [];
             $scope.loading = false;
         }
     }

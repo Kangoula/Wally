@@ -218,7 +218,7 @@ router.route('/search/:symbol')
           return res.send(body);
         }
         else {
-          res.sendStatus(404);
+          return res.sendStatus(404);
         }
       }
     });
