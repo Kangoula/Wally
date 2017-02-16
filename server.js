@@ -217,6 +217,9 @@ router.route('/search/:symbol')
         if (b.query.results && b.query.results.quote.Ask) {
           return res.send(body);
         }
+        else {
+          res.sendStatus(404);
+        }
       }
     });
   });
